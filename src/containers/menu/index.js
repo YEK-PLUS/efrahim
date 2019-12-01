@@ -1,29 +1,28 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
-import styles from './SideMenu.style';
+import styles from '../../style/menu';
 import {NavigationActions} from 'react-navigation';
 import {ScrollView, Text, View} from 'react-native';
-import { StackNavigator } from 'react-navigation';
 
 class SideMenu extends Component {
-  navigateToScreen = (route) => () => {
+  navigateToScreen = route => () => {
     const navigateAction = NavigationActions.navigate({
-      routeName: route
+      routeName: route,
     });
     this.props.navigation.dispatch(navigateAction);
-  }
+  };
 
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <ScrollView>
           <View>
-            <Text style={styles.sectionHeadingStyle}>
-              Section 1
-            </Text>
+            <Text style={styles.sectionHeadingStyle}>Section 1</Text>
             <View style={styles.navSectionStyle}>
-              <Text style={styles.navItemStyle} onPress={this.navigateToScreen('Detail')}>
-              Page1
+              <Text
+                style={styles.navItemStyle}
+                onPress={this.navigateToScreen('Detail')}>
+                Page1
               </Text>
             </View>
           </View>
@@ -37,7 +36,7 @@ class SideMenu extends Component {
 }
 
 SideMenu.propTypes = {
-  navigation: PropTypes.object
+  navigation: PropTypes.object,
 };
 
 export default SideMenu;

@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
-import {
-  Text,
-  View,
-  StyleSheet
-} from 'react-native';
+import {Text, View, StyleSheet} from 'react-native';
 
 class DetailScreen extends Component {
-  render () {
+  render() {
     return (
       <View style={styles.container}>
         <Text>Detail Screen</Text>
@@ -17,10 +13,10 @@ class DetailScreen extends Component {
 
 const styles = StyleSheet.create({
   container: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
-  }
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export default DetailScreen;

@@ -1,7 +1,6 @@
-import { TEST } from '../types';
+import {TEST} from '../types';
 
-const { _TEST } = TEST;
-
+const {_TEST} = TEST;
 
 const UserDefaultState = {
   _TEST: 'testDefault',
@@ -10,7 +9,7 @@ const UserDefaultState = {
 export default (state = UserDefaultState, action) => {
   switch (action.type) {
     case _TEST:
-      return { ...state, _TEST: action.value };
+      return {...state, _TEST: action.value};
     default:
       return state;
   }

@@ -1,10 +1,8 @@
 export rest from './rest';
-import { Provider } from 'react-redux';
-
-
+import {Provider} from 'react-redux';
 
 export default () => {
-	<Provider store={store}>
-		<App />
-	</Provider>
-}
+  <Provider store={store}>
+    <App />
+  </Provider>;
+};

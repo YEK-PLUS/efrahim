@@ -5,10 +5,10 @@ const instance = axios.create({
   timeout: 5000,
 });
 instance.interceptors.response.use(
-  (response) => (response.data),
-  (error) => {
+  response => response.data,
+  error => {
     const code = error.response && error.response.data;
-    return (code);
+    return code;
   },
 );
 export default async (path, body) => {

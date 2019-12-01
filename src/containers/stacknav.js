@@ -1,34 +1,39 @@
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View, TouchableOpacity
-} from 'react-native';
+import React from 'react';
+import {Text, TouchableOpacity} from 'react-native';
 
-import { createStackNavigator } from  'react-navigation-stack';
+import {createStackNavigator} from 'react-navigation-stack';
 
-import MainScreen from "./MainScreen";
-import DetailScreen from "./DetailScreen";
+import MainScreen from './screens/mainScreen';
+import DetailScreen from './DetailScreen';
+import sytles from '../style/stacknav';
 
+const stackNav = createStackNavigator(
+  {
+    Main: {
+      screen: MainScreen,
+      navigationOptions: ({navigation}) => ({
+        title: 'Main',
 
-const stackNav = createStackNavigator({
-  Main : {
-    screen: MainScreen,
-    navigationOptions: ({navigation}) => ({
-      title: "Main",
-      headerLeft:(<TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-                    <Text>asdS</Text>
-                  </TouchableOpacity>
-      ),
-    })
+        headerLeft: (
+          <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
+            <Text style={sytles.mainPageIcon}>O</Text>
+          </TouchableOpacity>
+        ),
+      }),
+    },
+    Detail: {
+      screen: DetailScreen,
+      navigationOptions: ({navigation}) => ({
+        title: 'Detail',
+      }),
+    },
   },
-  Detail: {
-    screen: DetailScreen,
-    navigationOptions: ({navigation}) => ({
-      title: "Detail",
-    })     
+  {
+    defaultNavigationOptions: {
+      headerStyle: sytles.mainPage,
+      headerTintColor: sytles.mainPage.color,
+    },
   },
-});
+);
 
 export default stackNav;
