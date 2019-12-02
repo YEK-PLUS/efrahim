@@ -10,14 +10,17 @@ import {
   Image,
 } from 'react-native';
 import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
+import { Provider } from 'react-redux';
 import {createAppContainer} from 'react-navigation';
 import LinearGradient from 'react-native-linear-gradient';
+import Store from '../state/store';
+import Preloaded from '../state/preloaded';
 import 'react-native-gesture-handler';
-
+const store = Store(Preloaded);
 import SideBar from './menu';
 import AnaSayfa from './screens/anasayfa';
 
-const AppDrawerNavigator = createDrawerNavigator(
+const AppDrawerNavigator = createAppContainer(createDrawerNavigator(
   {
     AnaSayfa,
     AnaSayfa,
