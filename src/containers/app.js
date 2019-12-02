@@ -1,20 +1,37 @@
-import {AppRegistry, Dimensions} from 'react-native';
+import React, {Component} from 'react';
+import {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  ScrollView,
+  Dimensions,
+  Image,
+} from 'react-native';
+import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
 import {createAppContainer} from 'react-navigation';
-import {createDrawerNavigator} from 'react-navigation-drawer';
+import LinearGradient from 'react-native-linear-gradient';
+import 'react-native-gesture-handler';
 
-import SideMenu from './menu';
-import stackNav from './stacknav';
+import SideBar from './menu';
+import AnaSayfa from './screens/anasayfa';
 
-const drawernav = createDrawerNavigator(
+const AppDrawerNavigator = createDrawerNavigator(
   {
-    Item1: {
-      screen: stackNav,
-    },
+    AnaSayfa,
+    AnaSayfa,
+    AnaSayfa,
+    AnaSayfa,
   },
   {
-    contentComponent: SideMenu,
-    drawerWidth: Dimensions.get('window').width - 120,
+    contentComponent: props => <SideBar {...props} />,
+    contentOptions: {
+      activeTintColor: '#e82a2a',
+    },
   },
 );
 
-AppRegistry.registerComponent('efrahim', () => createAppContainer(drawernav));
+AppRegistry.registerComponent('efrahim', () =>
+  createAppContainer(AppDrawerNavigator),
+);

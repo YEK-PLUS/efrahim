@@ -5,7 +5,7 @@ export default {
   },
   mainPageIcon: {
     color: 'white',
-    paddingLeft: 10,
+    paddingLeft: 20,
     fontSize: 30,
   },
 };
