@@ -33,8 +33,11 @@ const AppDrawerNavigator = createAppContainer(createDrawerNavigator(
       activeTintColor: '#e82a2a',
     },
   },
-);
-
-AppRegistry.registerComponent('efrahim', () =>
-  createAppContainer(AppDrawerNavigator),
+));
+const App = () => (
+  <Provider store={store}>
+  <AppDrawerNavigator/>
+  </Provider>
+  )
+AppRegistry.registerComponent('efrahim', () =>App,
 );
