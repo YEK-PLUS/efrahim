@@ -1,6 +1,6 @@
 export default {
   mainPage: {
-    backgroundColor: '#212121',
+    backgroundColor: '#000',
     color: 'white',
   },
   mainPageIcon: {

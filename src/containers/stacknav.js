@@ -1,10 +1,10 @@
 import React from 'react';
 import {Text, TouchableOpacity} from 'react-native';
-
+import { Icon } from 'native-base';
 import {createStackNavigator} from 'react-navigation-stack';
 
 import MainScreen from './screens/mainScreen';
-import DetailScreen from './DetailScreen';
+import DetailScreen from './screens/kuafor/detay';
 import sytles from '../style/stacknav';
 
 const stackNav = createStackNavigator(
@@ -16,7 +16,7 @@ const stackNav = createStackNavigator(
 
         headerLeft: (
           <TouchableOpacity onPress={() => navigation.toggleDrawer()}>
-            <Text style={sytles.mainPageIcon}>O</Text>
+            <Icon name='home' style={{fontSize: 20, color: 'red'}}/>
           </TouchableOpacity>
         ),
       }),
@@ -25,6 +25,8 @@ const stackNav = createStackNavigator(
       screen: DetailScreen,
       navigationOptions: ({navigation}) => ({
         title: 'Detail',
+        headerTransparent:true,
+        headerStyle:{backgroundColor:'transparent'}
       }),
     },
   },
