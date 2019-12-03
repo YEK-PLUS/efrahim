@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -7,10 +7,9 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {NavigationActions} from 'react-navigation';
-
+import Star from '../components/star';
 const KuaforFoto = props => {
-  const {image, name, navigation} = props;
+  const {image, name, navigation, sube} = props;
   const click = () => {
     navigation.navigate('Detail', {name});
   };
@@ -18,7 +17,13 @@ const KuaforFoto = props => {
     <TouchableOpacity onPress={() => click()}>
       <View style={styles.container}>
         <Image source={{uri: image}} style={styles.image} />
-        <Text style={styles.text}>{name}</Text>
+        <View style={styles.textArea}>
+          <Text style={styles.text}>{name}</Text>
+          <View style={styles.bottomTitle}>
+            <Text style={styles.text2}>{sube}</Text>
+            <Star />
+          </View>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -30,17 +35,33 @@ const styles = StyleSheet.create({
     margin: 5,
     borderRadius: 10,
   },
-  text: {
+  textArea: {
     position: 'relative',
-    top: -50,
-    color: 'white',
+    top: -55,
     width: '100%',
-    textAlign: 'center',
-    fontSize: 40,
-    lineHeight: 50,
+    display: 'flex',
+    flexDirection: 'column',
     backgroundColor: 'rgba(0,0,0,0.5)',
     borderBottomLeftRadius: 10,
     borderBottomRightRadius: 10,
+  },
+  bottomTitle: {
+    paddingBottom: 5,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingHorizontal: 20,
+  },
+  text: {
+    lineHeight: 30,
+    fontSize: 20,
+    color: 'white',
+    width: '100%',
+    textAlign: 'center',
+  },
+  text2: {
+    color: 'white',
   },
   image: {
     width: '100%',

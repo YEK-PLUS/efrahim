@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   Text,
   View,
@@ -7,7 +7,6 @@ import {
   Dimensions,
   TouchableOpacity,
 } from 'react-native';
-import {NavigationActions} from 'react-navigation';
 
 const KuaforFoto = props => {
   const {image, name, navigation} = props;

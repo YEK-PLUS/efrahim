@@ -1,18 +1,8 @@
-import React, {Component} from 'react';
-import {
-  AppRegistry,
-  StyleSheet,
-  Text,
-  View,
-  SafeAreaView,
-  ScrollView,
-  Dimensions,
-  Image,
-} from 'react-native';
-import {createDrawerNavigator, DrawerItems} from 'react-navigation-drawer';
+import React from 'react';
+import {AppRegistry} from 'react-native';
+import {createDrawerNavigator} from 'react-navigation-drawer';
 import {Provider} from 'react-redux';
 import {createAppContainer} from 'react-navigation';
-import LinearGradient from 'react-native-linear-gradient';
 import Store from '../state/store';
 import Preloaded from '../state/preloaded';
 import 'react-native-gesture-handler';
@@ -26,8 +16,6 @@ const AppDrawerNavigator = createAppContainer(
     {
       AnaSayfa,
       IslemKuafor,
-      AnaSayfa,
-      AnaSayfa,
     },
     {
       contentComponent: props => <SideBar {...props} />,

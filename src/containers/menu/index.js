@@ -1,16 +1,7 @@
 /* @flow */
 
 import React, {Component} from 'react';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
-  Linking,
-  Image,
-  Share,
-} from 'react-native';
-import {Icon, Button, Text} from 'native-base';
+import {View, StyleSheet, ScrollView, SafeAreaView, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {COLOR_MENU, COLOR_MENUIKI, IMAGE_MENU} from '../../style/main';
 import MenuItem from '../../components/menuItem';
@@ -18,7 +9,7 @@ export default class Menu extends Component {
   render() {
     return (
       <LinearGradient
-        style={{flex: 1}}
+        style={styles.linear}
         start={{x: 2, y: 2}}
         end={{x: 2, y: 0.2}}
         colors={[COLOR_MENU, COLOR_MENUIKI]}>
@@ -49,12 +40,14 @@ export default class Menu extends Component {
   }
 }
 const styles = StyleSheet.create({
+  linear: {
+    flex: 1,
+  },
   sarf: {
     flex: 1,
     top: 60,
   },
   container: {
-    alignItems: 200,
     alignItems: 'center',
     justifyContent: 'center',
   },

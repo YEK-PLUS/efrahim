@@ -1,30 +1,18 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {
   Container,
   Header,
-  Content,
-  Tab,
-  Tabs,
   Left,
   Body,
   Right,
   Title,
   Icon,
   Button,
-  Drawer,
 } from 'native-base';
-import {
-  View,
-  ScrollView,
-  StyleSheet,
-  Linking,
-  Text,
-  StatusBar,
-  Dimensions,
-} from 'react-native';
+import {View, StyleSheet, Linking} from 'react-native';
 import {COLOR_HEADER, COLOR_TITLE, TITLE, COLOR_MAIN} from '../../style/main';
 import Hizmetler from '../../components/hizmetler';
-export default class TabsExample extends Component {
+export default class TabsExample extends React.Component {
   KuaforYukle() {
     let a = [];
     for (var i = 9; i >= 1; i--) {
@@ -96,8 +84,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
     flexWrap: 'wrap',
   },
   menu: {
