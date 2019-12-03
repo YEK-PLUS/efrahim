@@ -1,7 +1,8 @@
-export const COLOR_HEADER = '#111111';
-export const COLOR_TITLE = '#e82a2a';
-export const COLOR_MENU = '#dd1818';
-export const COLOR_MENUIKI = '#111111';
+export const COLOR_HEADER = '#0D0D0D';
+export const COLOR_MAIN = '#D9D9D9';
+export const COLOR_TITLE = '#D9D9D9';
+export const COLOR_MENU = '#262626';
+export const COLOR_MENUIKI = '#0D0D0D';
 export const COLOR_IMAGE = '#141414';
 export const TITLE = 'EFRAHIM';
 export const IMAGE_MENU =
