@@ -23,7 +23,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {COLOR_HEADER, COLOR_TITLE, TITLE, COLOR_MAIN} from '../../style/main';
-import Hizmetler from '../../components/hizmetler';
+import Hizmetler from '../../components/kuaforFoto';
 export default class TabsExample extends Component {
   KuaforYukle() {
     let a = [];
@@ -31,39 +31,32 @@ export default class TabsExample extends Component {
       a.push(
         <Hizmetler
           navigation={this.props.navigation}
-          name="Sac Kesim"
-          image="https://image.flaticon.com/icons/png/512/82/82742.png"
+          name="J.FLA"
+          image="https://66.media.tumblr.com/a330d98ba819cf3fb204fcf9e2b3c204/tumblr_p1q9o0xN2o1wih5cfo3_250.png"
         />,
       );
     }
     return a;
   }
   render() {
+    const {name} = this.props.navigation.state.params;
     return (
       <Container style={styles.main}>
         <Header style={styles.header} androidStatusBarColor={COLOR_HEADER}>
           <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.toggleDrawer()}>
-              <Icon name="ios-menu" style={styles.menu} />
+            <Button transparent onPress={() => this.props.navigation.goBack()}>
+              <Icon name="arrow-back" />
             </Button>
           </Left>
           <Body>
-            <Title style={styles.title}>{TITLE}</Title>
+            <Title style={styles.title}>{name}</Title>
           </Body>
-          <Right>
-            <Button
-              transparent
-              onPress={() => Linking.openURL('http://ahmeterdgn.net/')}>
-              <Icon name="md-glasses" style={styles.icon2} />
-            </Button>
-          </Right>
+          <Right></Right>
         </Header>
         <Body>
-          <View style={styles.container}>
+        <ScrollView>
             <View style={styles.containerSub}>{this.KuaforYukle()}</View>
-          </View>
+          </ScrollView>
         </Body>
       </Container>
     );
@@ -80,17 +73,8 @@ const styles = StyleSheet.create({
   header: {
     backgroundColor: COLOR_HEADER,
   },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    height: '100%',
-    flexWrap: 'wrap',
-  },
   containerSub: {
+    width:'100%',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -106,7 +90,6 @@ const styles = StyleSheet.create({
   },
   title: {
     color: COLOR_TITLE,
-    left: 10,
     fontFamily: 'BadScript-Regular',
   },
   icon2: {
