@@ -10,12 +10,16 @@ const store = Store(Preloaded);
 import SideBar from './menu';
 import AnaSayfa from './screens/anasayfa';
 import IslemKuafor from './screens/IslemKuafor';
+import Detay from './screens/detay';
+import getMeet from './screens/getMeet';
 
 const AppDrawerNavigator = createAppContainer(
   createDrawerNavigator(
     {
       AnaSayfa,
       IslemKuafor,
+      Detay,
+      getMeet
     },
     {
       contentComponent: props => <SideBar {...props} />,

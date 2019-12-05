@@ -11,13 +11,13 @@ import {
 } from 'native-base';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import {COLOR_HEADER, COLOR_TITLE, COLOR_MAIN} from '../../style/main';
-import Hizmetler from '../../components/kuaforFoto';
+import KuaforFoto from '../../components/kuaforFoto';
 export default class TabsExample extends React.Component {
   KuaforYukle() {
     let a = [];
     for (var i = 9; i >= 1; i--) {
       a.push(
-        <Hizmetler
+        <KuaforFoto
           navigation={this.props.navigation}
           name="J.FLA"
           sube="cigli"

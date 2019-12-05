@@ -11,7 +11,7 @@ import Star from '../components/star';
 const KuaforFoto = props => {
   const {image, name, navigation, sube} = props;
   const click = () => {
-    navigation.navigate('Detail', {name});
+    navigation.navigate('Detay', {name});
   };
   return (
     <TouchableOpacity onPress={() => click()}>
