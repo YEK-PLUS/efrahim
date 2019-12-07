@@ -15,13 +15,15 @@ import KuaforFoto from '../../components/kuaforFoto';
 export default class TabsExample extends React.Component {
   KuaforYukle() {
     let a = [];
+    const {name} = this.props.navigation.state.params;
     for (var i = 9; i >= 1; i--) {
       a.push(
         <KuaforFoto
           navigation={this.props.navigation}
-          name="J.FLA"
-          sube="cigli"
-          image="https://66.media.tumblr.com/a330d98ba819cf3fb204fcf9e2b3c204/tumblr_p1q9o0xN2o1wih5cfo3_250.png"
+          name="Efrahim"
+          islem={name}
+          sube="Izmir"
+          image="https://i.hizliresim.com/NLQ29N.jpg"
         />,
       );
     }

@@ -40,13 +40,6 @@ export default class TabsExample extends React.Component {
           <Body>
             <Title style={styles.title}>{TITLE}</Title>
           </Body>
-          <Right>
-            <Button
-              transparent
-              onPress={() => Linking.openURL('http://ahmeterdgn.net/')}>
-              <Icon name="md-glasses" style={styles.icon2} />
-            </Button>
-          </Right>
         </Header>
         <Body>
           <View style={styles.container}>

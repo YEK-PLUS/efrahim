@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import Star from '../components/star';
 const KuaforFoto = props => {
-  const {image, name, navigation, sube} = props;
+  const {image,islem, name, navigation, sube} = props;
   const click = () => {
-    navigation.navigate('Detay', {name});
+    navigation.navigate('Detay', {name,islem,image});
   };
   return (
     <TouchableOpacity onPress={() => click()}>

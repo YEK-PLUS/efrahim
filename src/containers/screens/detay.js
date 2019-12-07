@@ -14,12 +14,12 @@ import {COLOR_HEADER, COLOR_TITLE, COLOR_MAIN} from '../../style/main';
 import Star from '../../components/star';
 import HizmetItem from '../../components/hizmetItem';
 const Detay = props => {
-  const {name} = props.navigation.state.params;
+  const {name,islem,image} = props.navigation.state.params;
   return (
     <Container>
         <View style={styles.head}>
           <Left style={styles.button}>
-            <Button style={styles.buttonIcon} transparent onPress={() => props.navigation.goBack()}>
+            <Button style={styles.buttonIcon} transparent onPress={() => props.navigation.navigate('IslemKuafor',{name:islem,islem:name})}>
               <Icon style={styles.buttonIcon} name="arrow-back" />
             </Button>  
           </Left>
@@ -29,7 +29,7 @@ const Detay = props => {
                 style={styles.image}
                 source={{
                   uri:
-                    'https://i.pinimg.com/originals/1d/f1/ed/1df1ed3b1cd18822c4a2818c6a6bf19a.jpg',
+                    'https://i.hizliresim.com/NLQ29N.jpg',
                 }}
               />
               <View style={styles.titleArea}>
@@ -93,7 +93,7 @@ const Detay = props => {
               Tutar : 40.0 TL
             </Text>
           </View>
-          <Button onPress={() => props.navigation.navigate('getMeet',{name})} style={styles.footerButton}>
+          <Button onPress={() => props.navigation.navigate('getMeet',{name,image})} style={styles.footerButton}>
             <Text style={styles.footerTextMin}>
                Devam Et
             </Text>
@@ -181,8 +181,8 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     width: '100%',
-    height: 230,
-    resizeMode: 'center',
+    height: 250,
+    resizeMode: 'cover',
     position: 'absolute',
   },
   container: {

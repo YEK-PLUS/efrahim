@@ -20,7 +20,7 @@ import KuaforFoto from '../../components/kuaforFoto';
 import HizmetItem from '../../components/hizmetItem';
 export default class TabsExample extends React.Component {
   render() {
-    const {name} = this.props.navigation.state.params;
+    const {name,image} = this.props.navigation.state.params;
     return (
       <Container style={styles.main}>
         <Header style={styles.header} androidStatusBarColor={COLOR_HEADER}>
@@ -126,7 +126,7 @@ export default class TabsExample extends React.Component {
           </View>
         </Body>
         <Footer style={styles.footer}>
-          <Button style={styles.footerButton}>
+          <Button onPress={() => this.props.navigation.navigate('form',{name,image})} style={{...styles.berberad,...{backgroundColor:COLOR_HEADER}}}>
             <Text style={styles.footerButton}> Hizli Randevu</Text>
           </Button>
         </Footer>
@@ -141,7 +141,6 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'center',
     width:'100%',
-    backgroundColor:COLOR_HEADER,
     color:'white',
     textAlign:'center'
   },
