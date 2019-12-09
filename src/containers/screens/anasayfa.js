@@ -9,7 +9,7 @@ import {
   Icon,
   Button,
 } from 'native-base';
-import {View, StyleSheet, Linking} from 'react-native';
+import {View, StyleSheet, Linking,Text,Image} from 'react-native';
 import {COLOR_HEADER, COLOR_TITLE, TITLE, COLOR_MAIN} from '../../style/main';
 import Hizmetler from '../../components/hizmetler';
 export default class TabsExample extends React.Component {
@@ -19,8 +19,8 @@ export default class TabsExample extends React.Component {
       a.push(
         <Hizmetler
           navigation={this.props.navigation}
-          name="Sac Kesim"
-          image="https://image.flaticon.com/icons/png/512/82/82742.png"
+          name="Sac Kesimi"
+          image="https://i.hizliresim.com/lQgRmQ.png"
         />,
       );
     }
@@ -40,9 +40,15 @@ export default class TabsExample extends React.Component {
           <Body>
             <Title style={styles.title}>{TITLE}</Title>
           </Body>
+          <Right/>
         </Header>
         <Body>
           <View style={styles.container}>
+            <View style={styles.ornekReklam}>
+              <View style={styles.ornekReklamContainer}>
+                <Image style={styles.reklamImage} source={{uri:'https://ae01.alicdn.com/kf/Hb56350fe56f64b1baec8c231345269faG.png'}}/>
+              </View>
+            </View>
             <View style={styles.containerSub}>{this.KuaforYukle()}</View>
           </View>
         </Body>
@@ -52,32 +58,46 @@ export default class TabsExample extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  reklamImage:{
+     height:'100%',
+    width:'100%'
+  },
+  ornekReklamContainer:{
+    height:'100%',
+    width:'100%'
+  },
+  ornekReklam:{
+    height:90,
+    marginVertical:20,
+    paddingHorizontal:20,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
+  },
+  containerSub: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
   main: {
-    flex: 1,
     backgroundColor: COLOR_MAIN,
     display: 'flex',
     flexDirection: 'column',
   },
   header: {
     backgroundColor: COLOR_HEADER,
-  },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-    width: '100%',
-    height: '100%',
-    flexWrap: 'wrap',
-  },
-  containerSub: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
   },
   menu: {
     color: COLOR_TITLE,

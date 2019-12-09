@@ -58,7 +58,7 @@ const Detay = props => {
             heading={
               <TabHeading  style={styles.tablar}> 
                 <Icon  style={styles.tabtext} name="md-hand"/>
-                <Text style={styles.tabtext} >Hizmetlerioni</Text> 
+                <Text style={styles.tabtext} >Hizmetler</Text> 
               </TabHeading>
             }>
              <List>
@@ -110,12 +110,14 @@ const styles = StyleSheet.create({
     borderRadius:5,
     paddingHorizontal:10,
     borderWidth: 1,
-    borderColor: '#fff'
- 
+    borderColor: '#fff',
+    display:'flex',
+    justifyContent:'center',
+    alignItems:'center',
+    flexDirection:'row'
   },
   footerTextMin:{
     color:'white',
-    borderRadius:5,
   },
   footerTextMax:{
     color:'white',
@@ -130,7 +132,7 @@ const styles = StyleSheet.create({
     display:'flex',
     flexDirection:'row',
     paddingHorizontal:20,
-    paddingVertical:10,
+    alignItems:'center',
     justifyContent:'space-between'
   },
   listItemLeft:{
@@ -172,6 +174,7 @@ const styles = StyleSheet.create({
     width: 'auto',
     display: 'flex',
     flexDirection: 'column',
+    backgroundColor:'red'
   },
   titleBerberTitle: {
     color: 'white',

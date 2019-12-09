@@ -1,6 +1,6 @@
 import React from 'react';
 import {AppRegistry} from 'react-native';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createDrawerNavigator } from 'react-navigation-drawer';
 import {Provider} from 'react-redux';
 import {createAppContainer} from 'react-navigation';
 import Store from '../state/store';
@@ -16,50 +16,14 @@ import form from './screens/form';
 import thanks from './screens/thanks';
 
 const AppDrawerNavigator = createAppContainer(
-  createStackNavigator(
+  createDrawerNavigator(
     {
-      AnaSayfa:{
-        screen:AnaSayfa,
-        navigationOptions: () => ({
-          title: 'Ana Sayfa',
-          headerBackTitle: null,
-        }),
-      },
-      IslemKuafor:{
-        screen:IslemKuafor,
-        navigationOptions: () => ({
-          title: 'Ana Sayfa',
-          headerBackTitle: null,
-        }),
-      },
-      Detay:{
-        screen:Detay,
-        navigationOptions: () => ({
-          title: 'Ana Sayfa',
-          headerBackTitle: null,
-        }),
-      },
-      getMeet:{
-        screen:getMeet,
-        navigationOptions: () => ({
-          title: 'Ana Sayfa',
-          headerBackTitle: null,
-        }),
-      },
-      form:{
-        screen:form,
-        navigationOptions: () => ({
-          title: 'Ana Sayfa',
-          headerBackTitle: null,
-        }),
-      },
-      thanks:{
-        screen:thanks,
-        navigationOptions: () => ({
-          title: 'Ana Sayfa',
-          headerBackTitle: null,
-        }),
-      },
+      AnaSayfa,
+      IslemKuafor,
+      Detay,
+      getMeet,
+      form,
+      thanks
     },
     {
       contentComponent: props => <SideBar {...props} />,
