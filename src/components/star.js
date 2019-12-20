@@ -4,13 +4,16 @@ import {Icon} from 'native-base';
 
 const Star = props => {
   const {count} = props;
+  const generate = () => {
+    let stars = [];
+    for (var i = count ; i > 0; i--) {
+      stars.push(<Icon style={styles.stars} name="star" />)
+    }
+    return stars;
+  }
   return (
     <View style={styles.starArea}>
-      <Icon style={styles.stars} name="star" />
-      <Icon style={styles.stars} name="star" />
-      <Icon style={styles.stars} name="star" />
-      <Icon style={styles.stars} name="star" />
-      <Icon style={styles.stars} name="star" />
+      { generate() }
     </View>
   );
 };

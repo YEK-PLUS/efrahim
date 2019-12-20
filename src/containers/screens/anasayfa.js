@@ -9,67 +9,95 @@ import {
   Icon,
   Button,
 } from 'native-base';
-import {View, StyleSheet, Linking,Text,Image} from 'react-native';
+import {View, StyleSheet, Linking, Text, Image} from 'react-native';
 import {COLOR_HEADER, COLOR_TITLE, TITLE, COLOR_MAIN} from '../../style/main';
 import Hizmetler from '../../components/hizmetler';
+import API from '../../api';
 export default class TabsExample extends React.Component {
-  KuaforYukle() {
-    let a = [];
-    for (var i = 9; i >= 1; i--) {
-      a.push(
-        <Hizmetler
-          navigation={this.props.navigation}
-          name="Sac Kesimi"
-          image="https://i.hizliresim.com/lQgRmQ.png"
-        />,
-      );
+  KuaforYukle(){
+    if(this.state && this.state.data){
+      let a = [];
+      for (let b in this.state.data){
+        a.push(
+          <Hizmetler
+            navigation={this.props.navigation}
+            name={this.state.data[b].title}
+            data={this.state.data[b]}
+            image={'http://kuaforefrahim.com/panel/uploads/admin/category/'+this.state.data[b].image}
+          />,
+        );
+      }
+      return a;
     }
-    return a;
+    else{
+      let a = [];
+      for (var i = 9; i >= 1; i--) {
+        a.push(
+          <Hizmetler
+            navigation={this.props.navigation}
+            name="Sac Kesimi"
+            image="https://i.hizliresim.com/lQgRmQ.png"
+          />,
+        );
+      }
+      return a;
+
+    }
+  }
+  async componentDidMount() {
+    const data = await API('get_categories');
+    this.setState({ data });
   }
   render() {
-    return (
-      <Container style={styles.main}>
-        <Header style={styles.header} androidStatusBarColor={COLOR_HEADER}>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.toggleDrawer()}>
-              <Icon name="ios-menu" style={styles.menu} />
-            </Button>
-          </Left>
+      return (
+        <Container style={styles.main}>
+          <Header style={styles.header} androidStatusBarColor={COLOR_HEADER}>
+            <Left>
+              <Button
+                transparent
+                onPress={() => this.props.navigation.toggleDrawer()}>
+                <Icon name="ios-menu" style={styles.menu} />
+              </Button>
+            </Left>
+            <Body>
+              <Title style={styles.title}>{TITLE}</Title>
+            </Body>
+            <Right />
+          </Header>
           <Body>
-            <Title style={styles.title}>{TITLE}</Title>
-          </Body>
-          <Right/>
-        </Header>
-        <Body>
-          <View style={styles.container}>
-            <View style={styles.ornekReklam}>
-              <View style={styles.ornekReklamContainer}>
-                <Image style={styles.reklamImage} source={{uri:'https://ae01.alicdn.com/kf/Hb56350fe56f64b1baec8c231345269faG.png'}}/>
+            <View style={styles.container}>
+              <View style={styles.ornekReklam}>
+                <View style={styles.ornekReklamContainer}>
+                  <Image
+                    style={styles.reklamImage}
+                    source={{
+                      uri:
+                        'https://ae01.alicdn.com/kf/Hb56350fe56f64b1baec8c231345269faG.png',
+                    }}
+                  />
+                </View>
               </View>
+              <View style={styles.containerSub}>{this.KuaforYukle()}</View>
             </View>
-            <View style={styles.containerSub}>{this.KuaforYukle()}</View>
-          </View>
-        </Body>
-      </Container>
-    );
+          </Body>
+        </Container>
+      );
   }
 }
 
 const styles = StyleSheet.create({
-  reklamImage:{
-     height:'100%',
-    width:'100%'
+  reklamImage: {
+    height: '100%',
+    width: '100%',
   },
-  ornekReklamContainer:{
-    height:'100%',
-    width:'100%'
+  ornekReklamContainer: {
+    height: '100%',
+    width: '100%',
   },
-  ornekReklam:{
-    height:90,
-    marginVertical:20,
-    paddingHorizontal:20,
+  ornekReklam: {
+    height: 90,
+    marginVertical: 20,
+    paddingHorizontal: 20,
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',

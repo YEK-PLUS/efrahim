@@ -1,6 +1,6 @@
 import React from 'react';
 import {AppRegistry} from 'react-native';
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import {createDrawerNavigator} from 'react-navigation-drawer';
 import {Provider} from 'react-redux';
 import {createAppContainer} from 'react-navigation';
 import Store from '../state/store';
@@ -23,7 +23,7 @@ const AppDrawerNavigator = createAppContainer(
       Detay,
       getMeet,
       form,
-      thanks
+      thanks,
     },
     {
       contentComponent: props => <SideBar {...props} />,

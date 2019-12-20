@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import Star from '../components/star';
 const KuaforFoto = props => {
-  const {image,islem, name, navigation, sube} = props;
+  const {image, islem, name, navigation, sube,data} = props;
   const click = () => {
-    navigation.navigate('Detay', {name,islem,image});
+    navigation.navigate('Detay', {name, islem, image,data});
   };
   return (
     <TouchableOpacity onPress={() => click()}>
@@ -21,7 +21,7 @@ const KuaforFoto = props => {
           <Text style={styles.text}>{name}</Text>
           <View style={styles.bottomTitle}>
             <Text style={styles.text2}>{sube}</Text>
-            <Star />
+            <Star count={data.avg_rating}/>
           </View>
         </View>
       </View>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
   },
   text: {
     lineHeight: 30,

@@ -7,157 +7,288 @@ import {
   StatusBar,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
+  ScrollView
 } from 'react-native';
-import { Container, Header, Content, TabHeading,Tab, Tabs, Left, Body,Footer, Right, Title,Icon, Button, Drawer,List, ListItem,Badge } from 'native-base';
+import {
+  Container,
+  Header,
+  Content,
+  TabHeading,
+  Tab,
+  Tabs,
+  Left,
+  Body,
+  Footer,
+  Right,
+  Title,
+  Icon,
+  Button,
+  Drawer,
+  List,
+  ListItem,
+  Badge,
+} from 'native-base';
+import API from '../../api';
 import {COLOR_HEADER, COLOR_TITLE, COLOR_MAIN} from '../../style/main';
 import Star from '../../components/star';
 import HizmetItem from '../../components/hizmetItem';
-const Detay = props => {
-  const {name,islem,image} = props.navigation.state.params;
-  return (
-    <Container>
-        <View style={styles.head}>
-          <Left style={styles.button}>
-            <Button style={styles.buttonIcon} transparent onPress={() => props.navigation.navigate('IslemKuafor',{name:islem,islem:name})}>
-              <Icon style={styles.buttonIcon} name="arrow-back" />
-            </Button>  
-          </Left>
-          <Body>
-            <View style={styles.container}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri:
-                    'https://i.hizliresim.com/NLQ29N.jpg',
-                }}
-              />
-              <View style={styles.titleArea}>
-                <View style={styles.titleBerber}>
-                  <Text style={styles.titleBerberTitle}>{name}</Text>
-                  <Star/>
-                </View>
-                <View>
-                  <TouchableOpacity>
-                    <Icon style={styles.info} name="ios-information-circle-outline" />
-                  </TouchableOpacity>
-                </View>
+import KuaforPopUp from '../../components/kuaforpopup';
+import * as popupaction from '../../state/actions/popup';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => ({
+  popup: state.popup,
+});
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(popupaction, dispatch);
+}
+class TabsExample extends React.Component {
+  hizmetYukle() {
+    if(this.state && this.state.data){
+      const {name} = this.props.navigation.state.params;
+      let a = [];
+      for (let b in this.state.data){
+        a.push(
+          <HizmetItem
+            navigation={this.props.navigation}
+            click={
+              () => {
+                let select = this.state.selected;
+                select[b] = !this.state.selected[b]
+                this.setState({selected:select})
+              }
+            }
+            icon={this.state.selected[b]}
+            text={this.state.data[b].service_title}
+            data={this.state.data[b]}
+            Prize={this.state.data[b].service_price}
+          />,
+        );
+      }
+      return a;
+    }
+    return [];    
+  }
+  state={
+    popupOpacity : false
+  }
+  async componentDidMount() {
+    this.setState({ selected : [] })
+    const {bus_id} = this.props.navigation.state.params.data;
+    const data = await API('get_services',{bus_id});
+    this.setState({ data });
+  }
+  calcTime(){
+    let times = [];
+    let time = 0 ;
+    if(this.state && this.state.data){
+      times = [];
+      for (let n in this.state.selected){
+        if(this.state.selected[n]){
+          let {business_approxtime} = this.state.data[n]
+          let _time = business_approxtime.replace(':','').replace(':','')
+          times.push(parseInt(_time))
+        }
+      }
+    }
+    for( let t in times ){
+      time += times[t]
+    }
+    let hour = parseInt((time%1000000)/10000 );
+    let min = parseInt((time%10000)/100);
+    let sec = parseInt(time%100);
+
+    hour = hour<10?'0'+hour:hour
+    min = min<10?'0'+min:min
+    sec = sec<10?'0'+sec:sec
+
+    return hour+':'+min+':'+sec
+  }
+  calcPrice(){
+    let prices = [];
+    let price = 0 ;
+    if(this.state && this.state.data){
+      prices = [];
+      for (let n in this.state.selected){
+        if(this.state.selected[n]){
+
+          let {service_price} = this.state.data[n]
+          let _time = service_price
+          prices.push(parseInt(_time))
+        }
+      }
+    }
+    for( let t in prices ){
+      price += prices[t]
+    }
+    return price
+  }
+  render() {
+    console.log(this.props)
+    const {name, islem, image,data} = this.props.navigation.state.params;
+    console.log(this.state.popupOpacity)
+    return (
+      <Container>
+      <View style={styles.head}>
+        <Left style={styles.button}>
+          <Button
+            style={styles.buttonIcon}
+            transparent
+            onPress={() =>
+              props.navigation.navigate('IslemKuafor', {
+                name: islem,
+                islem: name,
+              })
+            }>
+            <Icon style={styles.buttonIcon} name="arrow-back" />
+          </Button>
+        </Left>
+        <Body>
+          <View style={styles.container}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: image,
+              }}
+            />
+            <View style={styles.titleArea}>
+              <View style={styles.titleBerber}>
+                <Text style={styles.titleBerberTitle}>{name}</Text>
+                <Star count={data.avg_rating}/>
+              </View>
+              <View>
+                <TouchableOpacity onPress={() => {this.setState({popupOpacity:true})}}>
+                  <Icon
+                    style={styles.info}
+                    name="ios-information-circle-outline"
+                  />
+                </TouchableOpacity>
               </View>
             </View>
-          </Body>
-         
-        </View>
-        <Tabs style={styles.tab} tabBarUnderlineStyle ={{backgroundColor:COLOR_TITLE}} >
-          <Tab
-            tabStyle={styles.tablar} 
-            activeTextStyle={styles.tabtext}
-            activeTabStyle={styles.tablar} 
-            textStyle={styles.tabtext} 
-            scrollWithoutAnimation={false}  
-            tabBarUnderlineStyle ={{backgroundColor: 'red'}} 
-            heading={
-              <TabHeading  style={styles.tablar}> 
-                <Icon  style={styles.tabtext} name="md-hand"/>
-                <Text style={styles.tabtext} >Hizmetler</Text> 
-              </TabHeading>
-            }>
-             <List>
-              <HizmetItem/>
-              <HizmetItem/>
-              <HizmetItem/>
-              <HizmetItem/>
-            </List>
-          </Tab>
-          <Tab
-            tabStyle={styles.tablar} 
-            activeTextStyle={styles.tabtext}
-            activeTabStyle={styles.tablar} 
-            textStyle={styles.tabtext} 
-            scrollWithoutAnimation={false}  
-            tabBarUnderlineStyle ={{backgroundColor: 'red'}} 
-            heading={
-              <TabHeading  style={styles.tablar}> 
-                <Icon  style={styles.tabtext} name="ios-chatboxes"/>
-                <Text style={styles.tabtext} >Degerlendirmeler</Text> 
-              </TabHeading>
-            }>
-            <Text>test</Text>
-          </Tab>
-        </Tabs>
-        <Footer style={styles.footer}>
-          <View style={styles.footerTextArea}>
-            <Text style={styles.footerTextMin}>
-              Tahmini Zaman : 00:00
-            </Text>
-            <Text style={styles.footerTextMax}>
-              Tutar : 40.0 TL
-            </Text>
           </View>
-          <Button onPress={() => props.navigation.navigate('getMeet',{name,image})} style={styles.footerButton}>
-            <Text style={styles.footerTextMin}>
-               Devam Et
-            </Text>
-           
-          </Button>
-        </Footer>
-      </Container>
-  );
-};
+        </Body>
+      </View>
+      <Tabs
+        style={styles.tab}
+        tabBarUnderlineStyle={{backgroundColor: COLOR_TITLE}}>
+        <Tab
+          tabStyle={styles.tablar}
+          activeTextStyle={styles.tabtext}
+          activeTabStyle={styles.tablar}
+          textStyle={styles.tabtext}
+          scrollWithoutAnimation={false}
+          tabBarUnderlineStyle={{backgroundColor: 'red'}}
+          heading={
+            <TabHeading style={styles.tablar}>
+              <Icon style={styles.tabtext} name="md-hand" />
+              <Text style={styles.tabtext}>Hizmetler</Text>
+            </TabHeading>
+          }>
+          <View style={{flex: 1}}>
+            <ScrollView>
+              <List>
+                {this.hizmetYukle()}
+              </List>
+            </ScrollView>
+          </View>
+        </Tab>
+        <Tab
+          tabStyle={styles.tablar}
+          activeTextStyle={styles.tabtext}
+          activeTabStyle={styles.tablar}
+          textStyle={styles.tabtext}
+          scrollWithoutAnimation={false}
+          tabBarUnderlineStyle={{backgroundColor: 'red'}}
+          heading={
+            <TabHeading style={styles.tablar}>
+              <Icon style={styles.tabtext} name="ios-chatboxes" />
+              <Text style={styles.tabtext}>Degerlendirmeler</Text>
+            </TabHeading>
+          }>
+          <Text>test</Text>
+        </Tab>
+      </Tabs>
+      <Footer style={styles.footer}>
+        <View style={styles.footerTextArea}>
+          <Text style={styles.footerTextMin}>Tahmini Zaman : {this.calcTime()}</Text>
+          <Text style={styles.footerTextMax}>Tutar : {this.calcPrice()}</Text>
+        </View>
+        <Button
+          onPress={() => props.navigation.navigate('getMeet', {name, image})}
+          style={styles.footerButton}>
+          <Text style={styles.footerTextMin}>Devam Et</Text>
+        </Button>
+      </Footer>
+        <KuaforPopUp
+          opacity={this.state.popupOpacity}
+          name={name}
+          loc={data.bus_google_street}
+          image={image}
+          desc={data.bus_description}
+        />
+    </Container>
+    );
+  }
+  
+}
 
 const styles = StyleSheet.create({
-  footerButton:{
-    backgroundColor:'transparent',
-    borderRadius:5,
-    paddingHorizontal:10,
+  footerButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 5,
+    paddingHorizontal: 10,
     borderWidth: 1,
     borderColor: '#fff',
-    display:'flex',
-    justifyContent:'center',
-    alignItems:'center',
-    flexDirection:'row'
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
-  footerTextMin:{
-    color:'white',
+  footerTextMin: {
+    color: 'white',
   },
-  footerTextMax:{
-    color:'white',
-    fontWeight:'bold',
+  footerTextMax: {
+    color: 'white',
+    fontWeight: 'bold',
   },
-  footerTextArea:{
-    display:'flex',
-    flexDirection:'column',
+  footerTextArea: {
+    display: 'flex',
+    flexDirection: 'column',
   },
-  footer:{
-    backgroundColor:COLOR_HEADER,
-    display:'flex',
-    flexDirection:'row',
-    paddingHorizontal:20,
-    alignItems:'center',
-    justifyContent:'space-between'
+  footer: {
+    backgroundColor: COLOR_HEADER,
+    display: 'flex',
+    flexDirection: 'row',
+    paddingHorizontal: 20,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  listItemLeft:{
-    display:'flex',
-    justifyContent:'flex-start',
-    alignItems:'center',
-    flexDirection:'row'
+  listItemLeft: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
   },
-  listItem:{
-    display:'flex',
-    justifyContent:'space-between',
+  listItem: {
+    display: 'flex',
+    justifyContent: 'space-between',
   },
-  button:{
-    width:'auto',
-    position:'absolute',
-    zIndex:999,
-    top:10,
-    left:10,
-    color:'white'
+  button: {
+    width: 'auto',
+    position: 'absolute',
+    zIndex: 999,
+    top: 10,
+    left: 10,
+    color: 'white',
   },
   info: {
     color: 'white',
   },
-  buttonIcon:{
-    color:'white'
+  buttonIcon: {
+    color: 'white',
   },
   starArea: {
     display: 'flex',
@@ -174,7 +305,7 @@ const styles = StyleSheet.create({
     width: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor:'red'
+    backgroundColor: 'red',
   },
   titleBerberTitle: {
     color: 'white',
@@ -192,7 +323,7 @@ const styles = StyleSheet.create({
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent:'flex-end',
+    justifyContent: 'flex-end',
     height: 230,
   },
   content: {
@@ -223,30 +354,31 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   head: {
-    display:'flex',
-    flexDirection:'row',
-    justifyContent:'center',
-    alignContent:'center'
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
   },
   title: {
     color: COLOR_TITLE,
     left: 60,
-    fontFamily: 'BadScript-Regular'
+    fontFamily: 'BadScript-Regular',
   },
   icon2: {
-    color:'#fff',
-    fontSize: 40
+    color: '#fff',
+    fontSize: 40,
   },
   tablar: {
     backgroundColor: '#fff',
   },
   tabtext: {
-    color:'black',
-    marginHorizontal:10
+    color: 'black',
+    marginHorizontal: 10,
   },
-  tab:{
+  tab: {
     backgroundColor: COLOR_HEADER,
-  }
+  },
 });
 
-export default Detay;
+export default connect(mapStateToProps, mapDispatchToProps)(TabsExample);
+;

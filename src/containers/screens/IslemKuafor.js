@@ -11,23 +11,38 @@ import {
 } from 'native-base';
 import {View, ScrollView, StyleSheet} from 'react-native';
 import {COLOR_HEADER, COLOR_TITLE, COLOR_MAIN} from '../../style/main';
+import API from '../../api';
 import KuaforFoto from '../../components/kuaforFoto';
 export default class TabsExample extends React.Component {
   KuaforYukle() {
-    let a = [];
-    const {name} = this.props.navigation.state.params;
-    for (var i = 9; i >= 1; i--) {
-      a.push(
-        <KuaforFoto
-          navigation={this.props.navigation}
-          name="Efrahim"
-          islem={name}
-          sube="Izmir"
-          image="https://i.hizliresim.com/NLQ29N.jpg"
-        />,
-      );
+    if(this.state && this.state.data){
+      const {name} = this.props.navigation.state.params;
+      let a = [];
+      for (let b in this.state.data){
+        a.push(
+          <KuaforFoto
+            navigation={this.props.navigation}
+            name={this.state.data[b].bus_title}
+            islem={name}
+            data={this.state.data[b]}
+            sube={this.state.data[b].bus_google_street}
+            image={'http://kuaforefrahim.com/panel/uploads/business/'+this.state.data[b].bus_logo}
+          />,
+        );
+      }
+      return a;
     }
-    return a;
+    else{
+      let a = [];
+
+      return a;
+
+    }
+    
+  }
+  async componentDidMount() {
+    const data = await API('get_business');
+    this.setState({ data });
   }
   render() {
     const {name} = this.props.navigation.state.params;
