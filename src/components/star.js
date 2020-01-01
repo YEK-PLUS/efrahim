@@ -7,7 +7,7 @@ const Star = props => {
   const generate = () => {
     let stars = [];
     for (var i = count ; i > 0; i--) {
-      stars.push(<Icon style={styles.stars} name="star" />)
+      stars.push(<Icon key={`star-${i}`} style={styles.stars} name="star" />)
     }
     return stars;
   }

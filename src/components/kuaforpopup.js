@@ -6,28 +6,42 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
-  ScrollView
+  ScrollView,
+  Linking
 } from 'react-native';
 import {
   Icon,
 } from 'native-base';
-import Star from '../components/star';
+import Star from './star';
+import * as popupAction from '../redux/actions/popup';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+const mapStateToProps = (state) => ({
+  kuaforPopup:state.popup.kuaforPopup
+});
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(popupAction, dispatch);
+}
 const KuaforPopUp = props => {
   const {image, islem, name, navigation, loc,data,desc} = props;
+  const {bus_contact} = data
   const formatDesc = desc.replace('<p>','').replace('</p>','')
   const click = () => {
     navigation.navigate('Detay', {name, islem, image,data});
   };
-
-  if(props.opacity){
+  let opacity = props.kuaforPopup;
+  if(opacity){
 
   return (
-      <View style={styles.outter}>
+      <View style={styles.outter} onPress={() => {props.kuafor(!props.kuaforPopup)}}>
         <View style={styles.container}>
-          <Icon
-              style={styles.close}
-              name="ios-close"
-            />
+          <TouchableOpacity style={styles.close} onPress={() => {props.kuafor(!props.kuaforPopup)}}>
+            <Icon
+                style={styles.closeIcon}
+                name="ios-close"
+              />
+          </TouchableOpacity>
           <Image source={{uri:image}} style={styles.image}/>
         
           <View style={styles.bigTextOutter}>
@@ -40,10 +54,12 @@ const KuaforPopUp = props => {
                 {loc}
               </Text>
             </View>
-            <Icon
-              style={styles.info}
-              name="ios-call"
-            />
+            <TouchableOpacity style={styles.close} onPress={() => {Linking.openURL(`tel:+9${bus_contact}`)}}>
+              <Icon
+                style={styles.info}
+                name="ios-call"
+              />
+            </TouchableOpacity>
           </View>
           <ScrollView>
             <Text style={styles.desc}>
@@ -60,9 +76,11 @@ const KuaforPopUp = props => {
 
 };
 const styles = StyleSheet.create({
+  closeIcon:{
+    fontSize:50,
+  },
   close:{
     right:10,
-    fontSize:50,
     zIndex:9999,
     position:'absolute',
   },
@@ -117,4 +135,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default KuaforPopUp;
+export default connect(mapStateToProps,mapDispatchToProps)(KuaforPopUp)

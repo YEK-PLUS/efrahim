@@ -10,16 +10,15 @@ import {
 import {ListItem, Icon} from 'native-base';
 
 const KuaforFoto = props => {
-  const {image, name, navigation} = props;
   let {icon}=props;
-  icon = icon ? 'md-radio-button-on' : 'md-radio-button-off'
-  const click = () => {
-    navigation.navigate('IslemKuafor', {name});
-  };
+  icon = icon && (icon!=true&&icon!=false)?icon:(icon?'md-radio-button-on' : 'md-radio-button-off')
+  const extUp={
+    width:props.busy?'100%':'auto',
+  }
   return (
-    <ListItem style={styles.listItem} onPress={props.click} iconLeft>
+    <ListItem style={{...styles.listItem,...extUp}} onPress={props.click} iconLeft>
       <View style={styles.listItemLeft}>
-        <Icon name={icon} />
+        <Icon style={{color:props.busy?'red':'black',}} name={icon} />
         <Text style={styles.listItemText}>{props.text || 'Sac Kesim'}</Text>
       </View>
       <Text>{props.noPrize ? '' : props.Prize+' TL'}</Text>
